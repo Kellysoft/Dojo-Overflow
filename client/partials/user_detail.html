@@ -1,0 +1,76 @@
+<div class='bg'>
+  <div class='head'><a href="#!/">
+        <h1 class='main_logo'>Dojo <br> Overflow</h1>
+  </a></div>
+
+    <br>
+
+    <div class="user_img">
+     <img class="user_img" ng-if='user.fb_id' src="https://graph.facebook.com/{{user.fb_id}}/picture?type=large" alt="">
+    </div> 
+
+    
+
+    <div class="user_name">
+        <h1 class="user_name_pos">{{user.first_name}}</h1>
+        <p>Member since: {{user.createdAt | date:'MM-dd-yyyy'}}</p>
+        <p>Karma: {{karma}}</p>
+        <!-- <p>Click to view Facebook Profile</p> -->
+        <a class="fb_link" ng-if='user.fb_id' href="http://facebook.com/{{user.fb_id}}"><img src="assets/fb.png" style="width:70px;"></a>
+    </div>
+   
+    
+
+    <br>
+  
+    <div ng-show="auth">
+      <button type="button" ng-click='edit = !edit'>Edit my info</button>
+      <div ng-show='edit'>
+        <h3>Edit:</h3>
+
+        
+
+        <form ng-submit="update(updatedUser)">
+            <p>Alias: <input type="text" name="alias" ng-model="updatedUser.alias" ng-value="user.alias"></p>
+            <p ng-if="!user.fb_id">First Name: <input ng-if="!user.fb_id"  name="first_name" type="text" ng-model="updatedUser.first_name" ng-value="user.first_name"></p>
+            <p ng-if="!user.fb_id">Last Name: <input ng-if="!user.fb_id" name="last_name" type="text" ng-model="updatedUser.last_name" ng-value="user.last_name"></p>
+            <button>Submit</button><br><br>
+        </form>
+      </div>
+    </div>
+
+    <br>
+
+    <div style="margin:0 ;">
+        <button style="width:80px;height:40px;" ng-click="getUserThreads()">Threads</button>
+        <button style="width:80px;height:40px;" ng-click="getUserComments()">Comments</button>
+        <button style="width:80px;height:40px;" ng-click="getUserReplies()">Replies</button>
+    </div>
+    <div ng-show="view_threads">
+        <h1>Threads</h1>
+        <div class="main_thread" ng-repeat="thread in threads" style="margin-left:30px;">
+            <h2><a href="#!/thread/{{thread._id}}">{{thread.title}}</a></h2>
+            <p style="margin-left:30px;">{{thread.text}}</p><button style="margin-left:30px;" ng-if="auth" ng-click='deleteThread(thread._id)'>Delete</button>
+        </div>
+    </div>
+    <div ng-show="view_comments">
+        <h1>Comments</h1>
+        <div class="thread_comment" ng-repeat="comment in comments" style="margin-left:30px;">
+            <h2>Thread: {{comment._thread.title}}</h2>
+            <p style="margin-left:30px;">Comment:<a href="#!/thread/{{comment._thread._id}}">{{comment.text}}</a></p>
+            <button style="margin-left:30px;" ng-if="auth" ng-click='deleteComment(comment._id)'>Delete</button>
+        </div>
+    </div>
+    <div ng-show="view_replies">
+        <h1>Replies</h1>
+        <div class='comment_reply'  ng-repeat="reply in replies" style="margin-left:10px;">
+            <h2 style="margin-left:10px;">Reply: <a href="#!/thread/{{reply._comment._thread._id}}">{{reply.text}}</a></h2>
+            <h4 style="margin-left:30px;">Replying to: "{{reply._comment.text}}" - {{reply._comment._user.alias}}</h4>
+            <h5 style="margin-left:40px;">Thread: {{reply._comment._thread.title}}</h5>
+            
+            
+            <button style="margin-left:30px;" ng-if="auth" ng-click='deleteReply(reply._id)'>Delete</button>
+        </div>
+    </div>
+
+<!-- THREADS, REPLIES, COMMENTS -->

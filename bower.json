@@ -1,0 +1,23 @@
+{
+  "name": "dojo_rag",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Mitch <mitchellw.andrews@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/mitchellwandrews/MEAN",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.3",
+    "angular-route": "^1.6.3",
+    "angular-messages": "^1.6.3",
+    "angular-socket-io": "^0.7.0"
+  }
+}

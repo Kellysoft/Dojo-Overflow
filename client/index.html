@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app='app'>
+  <head>
+    <meta charset="utf-8">
+    <title>Dojo Overflow</title>
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
+    <script type="text/javascript" src="jquery/dist/jquery.js"></script>
+    <script src="angular/angular.js" charset="utf-8"></script>
+    <script src="angular-route/angular-route.js" charset="utf-8"></script>
+    <script src="angular-messages/angular-messages.js" charset="utf-8"></script>
+    <script src="assets/app.js" charset="utf-8"></script>
+    <script src="assets/homeFactory.js" charset="utf-8"></script>
+    <script src="assets/chatFactory.js" charset="utf-8"></script>
+    <script src="assets/boardFactory.js" charset="utf-8"></script>
+    <script src="assets/threadFactory.js" charset="utf-8"></script>
+    <script src="assets/userFactory.js" charset="utf-8"></script>
+    <script src="assets/homeController.js" charset="utf-8"></script>
+    <script src="assets/chatController.js" charset="utf-8"></script>
+    <script src="assets/boardController.js" charset="utf-8"></script>
+    <script src="assets/threadController.js" charset="utf-8"></script>
+    <script src="assets/userController.js" charset="utf-8"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <link href="bootstrap/dist/css/bootstrap.css" type="text/css" rel="stylesheet">
+
+    <meta property="og:url"           content="http://http://54.69.26.95/" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Dojo Overflow" />
+    <meta property="og:description"   content="Check this thread on Dojo Overflow" />
+    <meta property="og:image"         content="static/images/dojo.jpg" />
+  </head>
+  <body>
+    <div id="fb-root"></div>
+    <div class="container-fluid"  ng-view=''>
+    </div>
+  </body>
+</html>

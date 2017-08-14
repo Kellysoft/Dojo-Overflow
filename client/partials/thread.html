@@ -1,0 +1,99 @@
+<div class='bg'>
+  <div class='head'><a href="#!/">
+        <h1 class='main_logo'>Dojo <br> Overflow</h1>
+  </div>
+
+    <div class='verticalLine'>
+    <fieldset class='main_login' ng-hide='currentUser'>
+      <form name='logForm'>
+      <h4>Login existing user </h4>
+        <input type="text" placeholder="email" ng-model='user.email' required>
+        <br><br>
+        <input type="password" placeholder="password" ng-model='user.password' required>
+        <button class='right' ng-click='login(user)' ng-disabled='logForm.$invalid'>Login</button>
+        <br><br>
+        <a href="#!/registration">.. or click to register new user</a>
+      </form>
+    </fieldset>
+    </div>
+    <fieldset class='fb_login' ng-hide='currentUser'>
+      <h4>Login in with Facebook</h4>
+      <button class="loginBtn" ng-click="fbLogin()">FB Login</button>
+    </fieldset>
+
+
+      <fieldset  ng-if='currentUser'>
+        <a class="chat" href="chat.html">Chatroom |</a>
+        <a class='my_account' href="#!/user/{{currentUser._id}}">My Account |</a>
+        <a class='logout' href="/logout">Logout</a>
+      </fieldset>
+
+      <br>
+
+      <fieldset class="main_thread">
+        <h2>{{thread.title}}</h2>
+      <!-- <div class="fb-share-button fb_iframe_widget" data-href="http://54.69.26.95/#!/thread/{{thread._id}}" data-layout="button" data-size="large" data-mobile-iframe="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=315197785530461&amp;container_width=1333&amp;href=http%3A%2F%2Fgoogle.com%2F&amp;layout=button&amp;locale=en_US&amp;mobile_iframe=true&amp;sdk=joey&amp;size=large"><span style="vertical-align: bottom; width: 72px; height: 28px;"><iframe name="f3da8c9b74f01fc" width="1000px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:share_button Facebook Social Plugin" src="https://www.facebook.com/v2.8/plugins/share_button.php?app_id=315197785530461&amp;channel=http%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter%2Fr%2F1FegrZjPbq3.js%3Fversion%3D42%23cb%3Dfc7fcee31bc1e4%26domain%3Dlocalhost%26origin%3Dhttp%253A%252F%252Flocalhost%253A8000%252Ff10d5485f9fa5b%26relation%3Dparent.parent&amp;container_width=1333&amp;href=http%3A%2F%2Fgoogle.com%2F&amp;layout=button&amp;locale=en_US&amp;mobile_iframe=true&amp;sdk=joey&amp;size=large" style="border: none; visibility: visible; width: 72px; height: 28px;" class="">
+      <!-- </iframe></span></div></h2> -->
+
+      <div class="fb-share-button" data-href="http://54.69.26.95/#!/thread/{{thread._id}}" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F54.69.26.95%2F%23%21%2Fthread%2F{{thread._id}}&amp;src=sdkpreparse">Share On Facebook</a></div>
+
+
+        <p>{{thread.text}} <button ng-click='deleteThread(thread._id)' ng-if='currentUser._id === thread._user._id'>Delete</button></p>
+        <p>Likes: <span class='like' ng-bind='thread.upvotes.length - thread.downvotes.length'></span><button ng-click='upvoteThread(thread._id)'>Like</button>
+        <button ng-click='downvoteThread(thread._id)'>Dislike</button></p>
+        <p>By: <a href="#!/user/{{thread._user._id}}">{{thread._user.alias}}</a> on {{thread.createdAt | date:'MM-dd-yyyy @ h:mm a'}}</p>
+
+
+          <button type="button"  ng-click="comment = !comment">Comment</button>
+        <form name='myComment' ng-show='comment'>
+          <input type="text" placeholder="New Comment" ng-model='newComment.text' required>
+          <button ng-disabled='myComment.$invalid' ng-click='createComment(newComment, thread._id)'>Add Comment</button>
+        </form>
+      </fieldset>
+
+     <br>
+
+    <div>
+      <ul>
+
+        <li  ng-repeat='comment in thread.comments'>
+          <div class="thread_comment" >
+            <h4  >{{comment.text}}</h4>
+            <p>
+            By: <a href="#!/user/{{comment._user._id}}">{{comment._user.alias}}</a>
+              on{{comment.createdAt | date:'MM-dd-yyyy @ h:mm a'}}
+            <button ng-click='deleteComment(comment._id, thread._id)' ng-if='currentUser._id === comment._user._id'>Delete</button>
+            </p>
+            <p>Likes: <span class='like' ng-bind='comment.upvotes.length - comment.downvotes.length'></span>
+            <button ng-click='upvoteComment(comment._id, thread._id)'>Like</button>
+            <button ng-click='downvoteComment(comment._id, thread._id)'>Dislike</button></p>
+          <div>
+                <button type="button" ng-click='reply = !reply'>Reply</button>
+                  <form name='myReply' ng-show='reply'>
+                    <input type="text" placeholder="New Reply" ng-model='newReply.text' required>
+                    <button ng-disabled='myReply.$invalid' ng-click='createReply(newReply, comment._id, thread._id)'>Add Reply</button>
+                  </form>
+              </div>
+          </div>
+
+          <br>
+
+        <ul>
+          <li class='comment_reply' ng-repeat='reply in comment.replies'>
+            <h4>{{reply.text}}</h4>
+            <p>By: <a href="#!/user/{{reply._user._id}}">{{reply._user.alias}}</a>
+              on {{reply.createdAt | date:'MM-dd-yyyy @ h:mm a'}}
+            <button ng-click='deleteReply(reply._id, thread._id)' ng-if='currentUser._id === reply._user._id'>Delete</button></p>
+            <p>Likes: <span class='like' ng-bind='reply.upvotes.length - reply.downvotes.length'></span>
+            <button ng-click='upvoteReply(reply._id, thread._id)'>Like</button>
+            <button ng-click='downvoteReply(reply._id, thread._id)'>Dislike</button></p>
+          </li>
+        </ul>
+
+        <br>
+
+      </li>
+      </ul>
+    </div>
+
+</div>

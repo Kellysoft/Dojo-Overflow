@@ -1,0 +1,22 @@
+<div class='bg'>
+  <div class='head'><a href="#!/">
+        <h1 class='main_logo'>Dojo <br> Overflow</h1>
+  </a></div>
+
+
+  <h1>Start a new thread</h1>
+    <form name='myForm'>
+      <p>Title: <input type="text" name='title' ng-model='newThread.title' ng-minlength='5' required /></p>
+      <div ng-messages='myForm.title.$error'>
+        <div ng-message='required'>Title is required!</div>
+        <div ng-message='minlength'>Title must be at least 5 characters!</div>
+      </div>
+      <p>Body: <textarea name='body' ng-model='newThread.text' ng-minlength='20' required rows="8" cols="80"></textarea></p>
+      <div ng-messages='myForm.body.$error'>
+        <div ng-message='required'>Body is required!</div>
+        <div ng-message='minlength'>Body must be at least 20 characters!</div>
+      </div>
+      <button ng-disabled='myForm.$invalid' ng-click='createThread(newThread, category)'>Submit</button>
+    </form>
+
+</div>

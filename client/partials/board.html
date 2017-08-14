@@ -1,0 +1,43 @@
+<div class='bg'>
+  <div class='head'><a href="#!/">
+        <h1 class='main_logo'>Dojo <br> Overflow</h1>
+  </a></div>
+
+
+  <div class='verticalLine'>
+  <fieldset class='main_login' ng-hide='currentUser'>
+    <form>
+    <h4>Login existing user </h4>
+      <input type="text" placeholder="email" ng-model='user.email'><br><br><input type="password" placeholder="password" ng-model='user.password'><button class='right' ng-click='login(user)'>Login</button><br><br>
+
+      <a href="#!/registration">.. or click to register new user</a>
+
+
+
+
+    </form>
+  </fieldset>
+  </div>
+
+<fieldset class='fb_login' ng-hide='currentUser'>
+  <h4>Login in with Facebook</h4>
+  <button class="loginBtn" ng-click="fbLogin()">FB Login</button>
+</fieldset>
+
+<fieldset ng-if='currentUser'>
+  <p>Hello {{currentUser.alias}}</p>
+  <a href="#!/user/{{currentUser._id}}">My Account</a> <a href="/logout">Logout</a>
+</fieldset>
+
+<div class="thread">
+<h1>{{category}} Board</h1>
+<a href="#!/new_thread/{{category}}">Start a new Thread</a>
+<p>Search: <input type="text" ng-model="searchBoard"></p>
+<p>Show by: <a href='' ng-click='orderParam = "-score"'>Top</a> | <a href='' ng-click='orderParam = "-createdAt"'>New</a></p>
+<fieldset class='thread_loop' ng-repeat='thread in threads | filter:searchBoard | orderBy:orderParam'>
+  <h3><a href="#!/thread/{{thread._id}}">{{thread.title}}</a></h3>
+  <p>Likes: <span ng-bind='thread.upvotes.length - thread.downvotes.length'></span></p>
+  <p>By: <a href="#!/user/{{thread._user._id}}">{{thread._user.alias}}</a> on {{thread.createdAt | date:'MM-dd-yyyy @ h:mm a'}}</p>
+
+</fieldset>
+</div>

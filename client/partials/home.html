@@ -1,0 +1,55 @@
+
+<div class='bg'>
+  <div class='head'>
+        <h1 class='main_logo'>Dojo <br> Overflow</h1>
+  </div>
+      <div class='verticalLine'>
+      <fieldset class='main_login' ng-hide='currentUser'>
+        <form name='logForm'>
+        <h4>Login existing user </h4>
+          <input type="text" placeholder="email" ng-model='user.email' required><br><br><input type="password" placeholder="password" ng-model='user.password' required><button class='right' ng-click='login(user)' ng-disabled='logForm.$invalid'>Login</button><br><br>
+          <a href="#!/registration">.. or click to register new user</a>
+        </form>
+      </fieldset >
+
+  </div>
+
+      <fieldset class='fb_login' ng-hide='currentUser'>
+        <h4>Login in with Facebook</h4>
+        <button class="loginBtn loginBtn--facebook"  ng-click="fbLogin()">FB Login</button>
+      </fieldset>
+
+
+
+      <fieldset  ng-if='currentUser'>
+        <p class='myfont'> Hello {{currentUser.alias}}</p>
+        <a class="chat" href="#!/chat">Chatroom |</a> <a class='my_account' href="#!/user/{{currentUser._id}}">My Account |</a> <a class='logout' href="/logout">Logout</a>
+      </fieldset>
+
+    <hr>
+
+      <div class="search">
+        <fieldset>
+          <!-- <form>
+            <input type="text" ng-model='search.search' placeholder='search'>
+            <button ng-click='search(search)'>Search</button>
+          </form> -->
+        </fieldset>
+      </div>
+
+    <fieldset class="general">
+      <h3><a href="#!/board/General">General</a></h3>
+      <h5 ng-repeat='thread in GeneralThreads'><a href="#!/thread/{{thread._id}}">{{thread.title}}</a></h5>
+    </fieldset>
+
+    <fieldset class='meetup'>
+      <h3><a href="#!/board/Meetups">Meetups</a></h3>
+      <h5 ng-repeat='thread in MeetupThreads'><a href="#!/thread/{{thread._id}}">{{thread.title}}</a></h5>
+    </fieldset>
+
+    <fieldset class='jobs'>
+      <h3><a href="#!/board/Jobs">Jobs</a></h3>
+      <h5 ng-repeat='thread in JobThreads'><a href="#!/thread/{{thread._id}}">{{thread.title}}</a></h5>
+    </fieldset>
+
+</div>

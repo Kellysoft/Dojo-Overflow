@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form</title>
+     <style>
+  .all_user{
+    color: blue;
+    vertical-align: top;
+  }
+  #display{
+    display: inline-block;
+  }
+  #user_list{
+    
+  }
+  .user_msg{
+    color: blue;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .red{
+    color: red;
+  }
+  .green{
+    color: green;
+  }
+
+  </style>
+</head>
+<body>
+
+
+    <div id="display"> 
+     <form>
+        <input type="text" id="message">
+        <button>Send</button>
+    </form>   
+    </div>
+   <h5><a href="#!/home">Back to the home page.</a></h5>
+   
+    <p class='user_msg'>These are the active disscusion board users</p>
+    <div id='user_list'>
+        
+    </div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+        $(document).ready(function (){
+            // this triggers the connection event in our server!
+            var my_name;
+            var socket = io.connect();
+
+            function getUserInfo(){
+                var name = prompt("Please enter your name.")
+                my_name = name;
+                socket.emit('new_user', {name: my_name})
+            }
+
+            getUserInfo();
+
+            $('form').submit(function(e){
+                e.preventDefault();
+                socket.emit('send_message', {name:my_name, message: $('#message').val()})
+                $('#message').val('');
+            });
+            socket.on('load_messages', function(data){
+
+                for(var i = 0; i < data.messages.length; i++){
+                    $('#display').append("<p>" + data.messages[i] + "</p>")               
+                }
+               
+            });
+            socket.on('user_added', function(data){
+                console.log(data);
+                $('#display').append("<p class='green'>" + data.name + " just joined the chat</p>")
+            });
+            socket.on('new_message', function(data){
+                $('#display').append("<p>" + data.name + ": " + data.message + "</p>")
+            })
+
+            socket.on('user_names',function(data){
+                console.log(data)
+                var htmlstr = ''
+               for(var i = 0; i < data.name.length; i++){
+                    htmlstr += ('<p class="all_user">' + data.name[i].name +'</p>')
+                } 
+                $('#user_list').html(htmlstr);
+          })
+
+            socket.on('user_disconnected',function(data){
+                $('#display').append('<p class="red">' + data.name + 'has left the chat</p>')
+            })
+
+        });
+    </script>
+</body>
+</html>

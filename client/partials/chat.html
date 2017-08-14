@@ -1,0 +1,66 @@
+
+     <style>
+  .all_user{
+    color: blue;
+    vertical-align: top;
+    display: inline-block;
+  }
+  #display{
+    display: inline-block;
+    height: 400px;
+    width: 400px;
+    overflow: scroll;
+  }
+  #user_box{
+    display: inline-block;
+    width:300px;
+    height:300px;
+    margin-left: 200px;
+  }
+  .user_msg{
+    /*color: blue;*/
+    display: inline-block;
+    vertical-align: top;
+  }
+  .red{
+    color: red;
+  }
+  .green{
+    color: green;
+  }
+
+  #user_list{
+    width: 200px;
+  }
+
+  .user_list_style{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+    
+  }
+
+.all_user_list{
+  width:150px;
+}
+
+
+  </style>
+  <h5><a href="#!/home"><button ng-click="logOut()">Go Home</button></a></h5>
+  <!--  <div id="user_box">
+       Kill sockets on homepage
+  </div> -->
+
+    <div id="display">
+    <form>
+       <input type="text" id="message">
+       <button>Send</button>
+    </div> <!-- you are ending a div and chopping up a form right here -->
+
+    <div class="user_list_style">
+       <h3 class='user_msg'>Ninjas Here:</h3>
+       <div class='all_user_list' id='user_list'></div>
+   </div>
+
+   </form>
+</html>

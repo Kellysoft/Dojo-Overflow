@@ -1,0 +1,57 @@
+<div class='thread_reg'>
+
+<h5><a href="#!/">Back to the main login page</a></h5>
+
+	<form class='register' name='regForm'>
+	  <p> <input name='name' type="text" placeholder="First Name" ng-model='user.first_name' ng-minlength='3' required></p>
+	  <p> <input name='name' type="text" placeholder="Last name" ng-model='user.last_name' ng-minlength='3' required></p>
+	  <p> <input name='alias' type="text" placeholder="Alias" ng-model='user.alias' ng-minlength='2' required></p>
+	  <p> <input name='email' type="email" placeholder="Email" ng-model='user.email' required></p>
+	  <p> <input name='confirm_email' type="email" placeholder="Confirm email" ng-model='user.confirm_email' required></p>
+	  <p> <input name='password' type="password" placeholder="Password" ng-model='user.password' ng-minlength='8' required></p>
+	  <p> <input name='confirm_password' type="password" placeholder="Confirm password" ng-model='user.confirm_password' ng-minlength='8' required></p>
+	  		<div class="ng_msg">
+			<div ng-messages='regForm.name.$error'>
+			  <div ng-message='required'>First and Last name required!</div>
+			  <div ng-message='minlength'>First and last name must be at least 3 characters!</div>
+			</div>
+			<div ng-messages='regForm.alias.$error'>
+			  <div ng-message='required'>Alias is Required!</div>
+			  <div ng-message='minlength'>Alias must be at least 2 characters!</div>
+			</div>
+			<div ng-messages='regForm.password.$error'>
+			  <div ng-message='required'>Password is required!</div>
+			  <div ng-message='minlength'>Password must be at least 8 characters!</div>
+			  <div ng-if='user.password != user.confirm_password'>Passwords must match!</div>
+			</div>
+				<div ng-messages='regForm.email.$error'>
+				  <div ng-message='required'>Email is required!</div>
+				  <div ng-if='user.email != user.confirm_email'>Emails must match!</div>
+				</div>
+			</div>
+	  	<button type='reset'>Clear</button><button ng-disabled='regForm.$invalid' ng-click='	register(user)'>Register</button>	
+	</form>	
+
+	<div class='div_login'>
+			<fieldset class='reg_login' ng-hide='currentUser'>
+			  <form name='logForm'>
+			  <h4>Already a User?  </h4>
+			    <input type="text" placeholder="email" ng-model='loguser.email' required><br><br><input type="password" placeholder="password" ng-model='loguser.password' required><button ng-disabled='logForm.$invalid'  ng-click='login(loguser)'>Login</button><br><br>
+			    <div ng-messages='logForm.$error'>
+			      <div ng-message='required'>All fields required!</div>
+			    </div>
+			    
+			  </form>
+			</fieldset>
+		<!-- <div class='verticalLine_reg'>
+		</div> -->
+
+
+		<fieldset class='fb_login_reg' ng-hide='currentUser'>
+		  <h4>Login in with Facebook</h4>
+		  <button class="loginBtn" ng-click="fbLogin()">FB Login</button>
+		</fieldset>
+
+	</div>
+
+</div>
